@@ -1,8 +1,8 @@
 import streamlit as st
 import snowflake.connector
-ECHO°¡ ¼³Á¤µÇ¾î ÀÖ½À´Ï´Ù.
+ECHOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 st.title("Stylecode Backend API")
-ECHO°¡ ¼³Á¤µÇ¾î ÀÖ½À´Ï´Ù.
+ECHOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 def get_conn():
     return snowflake.connector.connect()
         account=st.secrets["SNOWFLAKE_ACCOUNT"],
@@ -12,10 +12,11 @@ def get_conn():
         database=st.secrets["SNOWFLAKE_DATABASE"],
         schema=st.secrets["SNOWFLAKE_SCHEMA"],
     )
-ECHO°¡ ¼³Á¤µÇ¾î ÀÖ½À´Ï´Ù.
+ECHOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 conn = get_conn()
 cur = conn.cursor()
 cur.execute("SELECT CURRENT_TIMESTAMP()")
 result = cur.fetchone()[0]
-ECHO°¡ ¼³Á¤µÇ¾î ÀÖ½À´Ï´Ù.
+ECHOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 st.success(f"Snowflake Connected OK : {result}")
+ 
