@@ -29,6 +29,36 @@ conn = get_conn()
 TOKEN = st.secrets.get("API_TOKEN", "")  # 없으면 토큰검증 생략
 q = st.query_params
 
+# API 타입 구분
+api_type = q.get("type", "")
+
+# 브랜드 목록 API
+if api_type == "brands":
+    token = q.get("token", "")
+    if TOKEN and token != TOKEN:
+        st.error("Unauthorized")
+        st.stop()
+    
+    # PRCS.DB_SHOP에서 BRD_CD 가져오기 (I, M, ST, V, X만)
+    sql = """
+    SELECT DISTINCT BRD_CD
+    FROM PRCS.DB_SHOP
+    WHERE BRD_CD IN ('I', 'M', 'ST', 'V', 'X')
+    ORDER BY BRD_CD
+    """
+    
+    cur = conn.cursor()
+    cur.execute(sql)
+    brands = [row[0] for row in cur.fetchall()]
+    
+    payload = {
+        "brands": brands,
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+    }
+    st.json(payload)
+    st.stop()
+
+# 기존 매출 API
 brand = q.get("brand", "A")
 month = q.get("month", "2025-12")
 token = q.get("token", "")
